@@ -23,7 +23,7 @@ const AgentCard: React.FC<AgentCardProps> = ({ title, icon, status, statusMessag
         return <XCircleIcon className="w-6 h-6 text-red-400" />;
       case 'pending':
       default:
-        return <div className="w-5 h-5 rounded-full bg-gray-600"></div>;
+        return <div className="w-5 h-5 rounded-full bg-gray-600 border-2 border-gray-500"></div>;
     }
   };
 
@@ -31,11 +31,11 @@ const AgentCard: React.FC<AgentCardProps> = ({ title, icon, status, statusMessag
     working: 'text-blue-400',
     completed: 'text-green-400',
     error: 'text-red-400',
-    pending: 'text-gray-500',
+    pending: 'text-gray-400',
   };
 
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl shadow-lg p-6 flex flex-col h-full transition-all duration-300">
+    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl shadow-lg p-6 flex flex-col h-full transition-all duration-500 hover:bg-white/10">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           {icon}
@@ -46,7 +46,7 @@ const AgentCard: React.FC<AgentCardProps> = ({ title, icon, status, statusMessag
             <StatusIndicator />
         </div>
       </div>
-      <div className="flex-grow overflow-y-auto pr-2 -mr-2" style={{ maxHeight: '400px' }}>
+      <div className="flex-grow">
         {children}
       </div>
     </div>

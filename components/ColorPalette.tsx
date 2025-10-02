@@ -1,13 +1,19 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 interface ColorPaletteProps {
   colors: string[];
 }
 
 const ColorPalette: React.FC<ColorPaletteProps> = ({ colors }) => {
+  const [copiedColor, setCopiedColor] = useState<string | null>(null);
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
+    setCopiedColor(text);
+    setTimeout(() => {
+      setCopiedColor(null);
+    }, 2000);
   };
 
   return (
@@ -15,11 +21,17 @@ const ColorPalette: React.FC<ColorPaletteProps> = ({ colors }) => {
       {colors.map((color, index) => (
         <div key={index} className="flex flex-col items-center group">
           <div
-            className="w-16 h-16 rounded-lg shadow-lg cursor-pointer transition-transform transform group-hover:scale-110"
+            className="w-16 h-16 rounded-lg shadow-lg cursor-pointer transition-transform transform group-hover:scale-110 relative overflow-hidden"
             style={{ backgroundColor: color }}
             onClick={() => copyToClipboard(color)}
             title="Copy to clipboard"
-          />
+          >
+            {copiedColor === color && (
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">Copied!</span>
+                </div>
+            )}
+          </div>
           <span className="mt-2 text-xs text-gray-400 font-mono tracking-wider">{color}</span>
         </div>
       ))}
